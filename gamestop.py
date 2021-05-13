@@ -11,4 +11,4 @@ r=requests.get(url_base+"games/",params=parametros,headers=cabeceras)
 if r.status_code==200:
 	doc = r.json()
 	for juegos in doc.get('results'):
-		print(juegos.get('name'))
+		print(juegos.get('name'),juegos.get('id'))

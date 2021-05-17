@@ -78,6 +78,9 @@ def detallejuego(identificador):
 	else:
 		abort(404)
 
+@app.route('/noticias',methods=["GET","POST"])
+def noticias():
+
 
 
 

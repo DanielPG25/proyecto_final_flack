@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Buscador de juegos{% endblock %}
+{% block content %}
+    <div id="wrapper">
+
+				<!-- Intro -->
+			<section id="intro" class="wrapper style1 fullscreen fade-up">
+				<div class="inner">
+					<h1>Buscador de juegos</h1>
+					<p>Introduce a continuación la cadena por la que buscaremos el juego</p>
+					{% if error %}
+						<h2>No existen juegos que empiecen por la cadena introducida y que tengan la categoría elegida</h2>
+					{% endif %}	
+					<section>
+						<form action="/juegos" method="post">
+							<div class="fields">
+								<div class="field">
+									<label for="message">Nombre de juego</label>
+									<input type="text" name="cad" value="{{cad}}"/>
+								</div>
+							</div>
+							<label for="message">Categoría</label>
+							<select name="categoria_seleccionada">
+            					{% for dato in datos %}
+                					{% if seleccionado==dato %}
+                    					<option selected value="{{dato}}">{{dato}}</option>
+                					{% else %}
+                    					<option value="{{dato}}">{{dato}}</option>
+                					{% endif %}
+            					{% endfor %}
+        					</select> 
+        					<br>
+							<ul class="actions">
+								<li><a href="/juegos" class="button submit">Buscar</a></li>
+							</ul>
+						</form>
+					</section>
+				</div>
+			</section>			
+	</div>
+{% endblock %}

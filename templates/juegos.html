@@ -7,7 +7,7 @@
 			<section id="intro" class="wrapper style1 fullscreen fade-up">
 				<div class="inner">
 					<h1>Buscador de juegos</h1>
-					<p>Introduce a continuación la cadena por la que buscaremos el juego (la primera letra en mayúscula)</p>
+					<p>Introduce a continuación la cadena por la que buscaremos el juego</p>
 					{% if error %}
 						<h2>No existen juegos que empiecen por la cadena introducida y que tengan la categoría elegida</h2>
 					{% endif %}	
@@ -22,10 +22,10 @@
 							<label for="message">Categoría</label>
 							<select name="categoria_seleccionada">
             					{% for dato in datos %}
-                					{% if seleccionado==dato.valor %}
-                    					<option selected value="{{dato.valor}}">{{dato.texto}}</option>
+                					{% if seleccionado==dato %}
+                    					<option selected value="{{dato}}">{{dato}}</option>
                 					{% else %}
-                    					<option value="{{dato.valor}}">{{dato.texto}}</option>
+                    					<option value="{{dato}}">{{dato}}</option>
                 					{% endif %}
             					{% endfor %}
         					</select> 

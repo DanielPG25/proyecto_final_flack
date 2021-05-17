@@ -4,31 +4,34 @@
     <div id="wrapper">
 			<section id="intro" class="wrapper style1 fullscreen fade-up">
 				<div class="inner">
-					{% if cad == "" %}
-					<h1>Lista de todos los juegos</h1>
+					{% if error %}
+					<h1>No hay juegos con contengan esa cadena y esa categoría</h1>
+					<p>{{cad}}</p>
 					{% else %}
-					<h1>Juegos que empiezan por "{{cad}}"</h1>
+						{% if cad == "" %}
+						<h1>Lista de todos los juegos</h1>
+						{% else %}
+						<h1>Juegos que empiezan por "{{cad}}"</h1>
+						{% endif %}
+						<div class="table-wrapper">
+											<table>
+												<thead>
+													<tr>
+														<th>Nombre</th>
+														<th>Detalles</th>
+													</tr>
+												</thead>
+												<tbody>
+														{% for juego in datos%}
+															<tr>
+																<td>{{juego.nombre}}</td>
+																<td><a href="/juego/{{juego.id}}">Detalles</a></td>
+															</tr>
+														{% endfor %}									
+												</tbody>
+											</table>
+						</div>
 					{% endif %}
-					<div class="table-wrapper">
-										<table>
-											<thead>
-												<tr>
-													<th>Nombre</th>
-													<th>Desarrollador</th>
-													<th>Enlace</th>
-												</tr>
-											</thead>
-											<tbody>
-													{% for juego in datos%}
-														<tr>
-															<td>{{juego.nombre}}</td>
-															<td>{{juego.desarrollador}}</td>
-															<td><a href="/juego/{{juego.id}}">Detalles</a></td>
-														</tr>
-													{% endfor %}									
-											</tbody>
-										</table>
-									</div>
 				</div>
 			</section>			
 	</div>

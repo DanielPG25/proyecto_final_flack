@@ -45,9 +45,41 @@ def juegos():
 						dicc['id']=juegos.get('id')
 						datos.append(dicc)
 						error = False
-			return render_template("listajuegos.html",datos=datos,error=error,cad=categoria)
+			return render_template("listajuegos.html",datos=datos,error=error,cad=request.form.get("cad"))
 		else:
 			abort(404)
+
+@app.route('/juego/<identificador>')
+def detallejuego(identificador):
+	datos=[]
+	ind = True
+	id_="id:"+ identificador
+	direcc = id_+":asc"
+	parametros={"api_key":key,"format":"json","filter":id_,"limit":1,"sort":direcc}
+	r=requests.get(url_base+"games/",params=parametros,headers=cabeceras)
+	if r.status_code==200:
+		doc = r.json()
+		for juegos in doc.get('results'):
+			ind = False
+			dicc={}
+			dicc['nombre']=juegos.get('name')
+			dicc['descripcion']=juegos.get('description')
+			dicc['fecha']=juegos.get('release_date')
+			dicc['imagen']=juegos.get('image').get('original')
+			dicc['tematica']=juegos.get('themes')
+			dicc['franquicias']=juegos.get('franchises')
+			dicc['url']=juegos.get('site_detail_url')
+			dicc['generos']=juegos.get('genres')
+			datos.append(dicc)
+		if ind:
+			abort(404)
+		else:
+			return render_template("detallesjuegos.html",datos=datos)
+	else:
+		abort(404)
+
+
+
 
 
 

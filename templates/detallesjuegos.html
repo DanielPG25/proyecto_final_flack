@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Detalles{% endblock %}
+{% block content %}
+    <div id="wrapper">
+			<section id="intro" class="wrapper style1 fullscreen fade-up">
+				<div class="inner">
+					{% for juego in datos %}
+					<h1>{{juego.nombre}}</h1>
+					<p>Sistema: {{juego.sistema}}</p>
+					<p>Distribuidor: {{juego.distribuidor}}</p>
+					<p>Desarrollador: {{juego.desarrollador}}</p>
+					<p>Categoría: {{juego.categoria}}</p>
+					<p>Año de publicación: {{juego.año}}</p>
+					{% endfor %}
+				</div>
+			</section>			
+	</div>
+{% endblock %}

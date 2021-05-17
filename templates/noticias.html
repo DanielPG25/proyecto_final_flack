@@ -1,21 +1,21 @@
 {% extends "base.html" %}
-{% block title %}Buscador de juegos{% endblock %}
+{% block title %}Buscador de noticias{% endblock %}
 {% block content %}
     <div id="wrapper">
 
 				<!-- Intro -->
 			<section id="intro" class="wrapper style1 fullscreen fade-up">
 				<div class="inner">
-					<h1>Buscador de juegos</h1>
-					<p>Introduce a continuación la cadena por la que buscaremos el juego</p>
+					<h1>Buscador de noticias</h1>
+					<p>Introduce a continuación la cadena por la que buscaremos la noticia</p>
 					{% if error %}
-						<h2>No existen juegos que empiecen por la cadena introducida y que tengan la categoría elegida</h2>
+						<h2>No existen noticias que empiecen por la cadena introducida y que tengan la categoría elegida</h2>
 					{% endif %}	
 					<section>
-						<form action="/juegos" method="post">
+						<form action="/noticias" method="post">
 							<div class="fields">
 								<div class="field">
-									<label for="message">Nombre de juego</label>
+									<label for="message">Titulo de la noticia</label>
 									<input type="text" name="cad" value="{{cad}}"/>
 								</div>
 							</div>

@@ -80,6 +80,19 @@ def detallejuego(identificador):
 
 @app.route('/noticias',methods=["GET","POST"])
 def noticias():
+	if request.method=="GET":
+		parametros={"api_key":key,"format":"json","field_list":"categories"}
+		r=requests.get(url_base+"articles/",params=parametros,headers=cabeceras)
+		if r.status_code==200:
+			doc = r.json()
+			lista = []
+			for categoria in doc.get('results'):
+				for cat in categoria.get('categories'):
+					if cat.get('name') not in lista:
+						lista.append(cat.get('name'))
+			return render_template("noticias.html",datos=lista)
+		else:
+			abort(404)
 
 
 

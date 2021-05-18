@@ -14,7 +14,7 @@ def inicio():
 	return render_template("inicio.html")
 
 @app.route('/juegos',methods=["GET","POST"])
-def juegos():
+def juegosl():
 	if request.method=="GET":
 		parametros={"api_key":key,"format":"json","field_list":"genres"}
 		r=requests.get(url_base+"games/",params=parametros,headers=cabeceras)
@@ -93,7 +93,56 @@ def noticias():
 			return render_template("noticias.html",datos=lista)
 		else:
 			abort(404)
+	else:
+		nombre="title:" + str(request.form.get("cad"))
+		categoria = str(request.form.get("categoria_seleccionada"))
+		parametros={"api_key":key,"format":"json","filter":nombre,"offset":0}
+		r=requests.get(url_base+"articles/",params=parametros,headers=cabeceras)
+		if r.status_code==200:
+			doc = r.json()
+			datos = []
+			error = True
+			for articulos in doc.get('results'):
+				for genr in articulos.get('categories'):
+					if categoria in genr.get('name'):
+						dicc={}
+						dicc['nombre']=articulos.get('title')
+						dicc['id']=articulos.get('id')
+						datos.append(dicc)
+						error=False
+			return render_template("listanoticias.html",datos=datos,error=error,cad=request.form.get("cad"))
+		else:
+			abort(404)
 
+
+@app.route('/noticia/<identificador>')
+def detallenoticia(identificador):
+	datos=[]
+	ind = True
+	id_="id:"+ identificador
+	direcc = id_+":asc"
+	parametros={"api_key":key,"format":"json","filter":id_,"limit":1,"sort":direcc}
+	r=requests.get(url_base+"games/",params=parametros,headers=cabeceras)
+	if r.status_code==200:
+		doc = r.json()
+		for juegos in doc.get('results'):
+			ind = False
+			dicc={}
+			dicc['nombre']=juegos.get('name')
+			dicc['descripcion']=juegos.get('description')
+			dicc['fecha']=juegos.get('release_date')
+			dicc['imagen']=juegos.get('image').get('original')
+			dicc['tematica']=juegos.get('themes')
+			dicc['franquicias']=juegos.get('franchises')
+			dicc['url']=juegos.get('site_detail_url')
+			dicc['generos']=juegos.get('genres')
+			datos.append(dicc)
+		if ind:
+			abort(404)
+		else:
+			return render_template("detallesjuegos.html",datos=datos)
+	else:
+		abort(404)
 
 
 

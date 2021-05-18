@@ -5,14 +5,9 @@
 			<section id="intro" class="wrapper style1 fullscreen fade-up">
 				<div class="inner">
 					{% if error %}
-					<h1>No hay juegos con contengan esa cadena y esa categoría</h1>
-					<p>{{cad}}</p>
+					<h1>No hay noticias con contengan esa cadena y esa categoría</h1>
 					{% else %}
-						{% if cad == "" %}
-						<h1>Primeros juegos de la lista con esa categoría. Para ver más introduzca una cadena en el buscador</h1>
-						{% else %}
-						<h1>Juegos que empiezan por "{{cad}}"</h1>
-						{% endif %}
+						<h1>Listado de noticias:</h1>						
 						<div class="table-wrapper">
 								<table>
 									<thead>
@@ -22,10 +17,10 @@
 										</tr>
 									</thead>
 									<tbody>
-											{% for juego in datos%}
+											{% for noticia in datos%}
 												<tr>
-													<td>{{juego.nombre}}</td>
-													<td><a href="/juego/{{juego.id}}">Detalles</a></td>
+													<td>{{noticia.nombre}}</td>
+													<td><a href="/noticia/{{noticia.id}}">Detalles</a></td>
 												</tr>
 											{% endfor %}									
 									</tbody>

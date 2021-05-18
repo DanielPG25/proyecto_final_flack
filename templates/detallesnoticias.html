@@ -4,30 +4,20 @@
     <div id="wrapper">
 			<section id="intro" class="wrapper style1 fullscreen fade-up">
 				<div class="inner">
-					{% for juego in datos %}
-					<img src={{juego.imagen}} width=500px data-position="center"/>
-					<h1>{{juego.nombre}}</h1>
-					<p>{{juego.descripcion}}</p>
-					<p>Fecha de publicación: {{juego.fecha}}</p>
-					<p>Franquicia:</p>
+					{% for noticia in datos %}
+					<h1>{{noticia.nombre}}</h1>
+					<p>{{noticia.autor}}</p>
+					<p>Fecha de publicación: {{noticia.fecha}}</p>
+					<p>{{noticia.deck}}</p><br>
+					<p>{{noticia.body}}</p><br>
+					<p>{{noticia.lede}}</p>
+					<p>Categorías:</p>
 					<ul>
-					{% for a in juego.franquicias %}
+					{% for a in noticia.generos %}
 						<li>{{a.name}}</li>
 					{% endfor %}
 					</ul>
-					<p>Temática:</p>
-					<ul>
-					{% for a in juego.tematica %}
-						<li>{{a.name}}</li>
-					{% endfor %}
-					</ul>
-					<p>Géneros:</p>
-					<ul>
-					{% for a in juego.generos %}
-						<li>{{a.name}}</li>
-					{% endfor %}
-					</ul>
-					<a href={{juego.url}}>Página Principal</a>					
+					<a href={{noticia.url}}>Noticia Original</a>					
 					{% endfor %}
 				</div>
 			</section>			

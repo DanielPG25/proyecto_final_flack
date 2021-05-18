@@ -128,14 +128,14 @@ def detallenoticia(identificador):
 		for articulo in doc.get('results'):
 			ind = False
 			dicc={}
-			dicc['nombre']=juegos.get('title')
-			dicc['autor']=juegos.get('authors')
-			dicc['fecha']=juegos.get('publish_date')
-			dicc['deck']=juegos.get('deck')
-			dicc['body']=juegos.get('body')
-			dicc['ledes']=juegos.get('lede')
-			dicc['url']=juegos.get('site_detail_url')
-			dicc['generos']=juegos.get('categories')
+			dicc['nombre']=articulo.get('title')
+			dicc['autor']=articulo.get('authors')
+			dicc['fecha']=articulo.get('publish_date')
+			dicc['deck']=articulo.get('deck')
+			dicc['body']=articulo.get('body')
+			dicc['ledes']=articulo.get('lede')
+			dicc['url']=articulo.get('site_detail_url')
+			dicc['generos']=articulo.get('categories')
 			datos.append(dicc)
 		if ind:
 			abort(404)
@@ -143,6 +143,26 @@ def detallenoticia(identificador):
 			return render_template("detallesnoticias.html",datos=datos)
 	else:
 		abort(404)
+
+@app.route('/noticias/<categoria>')
+def categoriasnoticia(categoria):
+	nombre="genres:" + categoria
+	parametros={"api_key":key,"format":"json","filter":nombre,"offset":0}
+	r=requests.get(url_base+"articles/",params=parametros,headers=cabeceras)
+	if r.status_code==200:
+		doc = r.json()
+		datos = []
+		for articulos in doc.get('results'):
+			dicc={}
+			dicc['nombre']=articulos.get('title')
+			dicc['id']=articulos.get('id')
+			datos.append(dicc)
+		return render_template("categoriasnoticias.html",datos=datos,cad=categoria)
+	else
+		abort(404)
+
+
+
 
 
 

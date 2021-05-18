@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Detalles{% endblock %}
+{% block content %}
+    <div id="wrapper">
+			<section id="intro" class="wrapper style1 fullscreen fade-up">
+				<div class="inner">
+					{% for juego in datos %}
+					<img src={{juego.imagen}} width=500px data-position="center"/>
+					<h1>{{juego.nombre}}</h1>
+					<p>{{juego.descripcion}}</p>
+					<p>Fecha de publicación: {{juego.fecha}}</p>
+					<p>Franquicia:</p>
+					<ul>
+					{% for a in juego.franquicias %}
+						<li>{{a.name}}</li>
+					{% endfor %}
+					</ul>
+					<p>Temática:</p>
+					<ul>
+					{% for a in juego.tematica %}
+						<li>{{a.name}}</li>
+					{% endfor %}
+					</ul>
+					<p>Géneros:</p>
+					<ul>
+					{% for a in juego.generos %}
+						<li>{{a.name}}</li>
+					{% endfor %}
+					</ul>
+					<a href={{juego.url}}>Página Principal</a>					
+					{% endfor %}
+				</div>
+			</section>			
+	</div>
+{% endblock %}

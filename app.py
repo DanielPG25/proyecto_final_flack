@@ -122,25 +122,25 @@ def detallenoticia(identificador):
 	id_="id:"+ identificador
 	direcc = id_+":asc"
 	parametros={"api_key":key,"format":"json","filter":id_,"limit":1,"sort":direcc}
-	r=requests.get(url_base+"games/",params=parametros,headers=cabeceras)
+	r=requests.get(url_base+"articles/",params=parametros,headers=cabeceras)
 	if r.status_code==200:
 		doc = r.json()
-		for juegos in doc.get('results'):
+		for articulo in doc.get('results'):
 			ind = False
 			dicc={}
-			dicc['nombre']=juegos.get('name')
-			dicc['descripcion']=juegos.get('description')
-			dicc['fecha']=juegos.get('release_date')
-			dicc['imagen']=juegos.get('image').get('original')
-			dicc['tematica']=juegos.get('themes')
-			dicc['franquicias']=juegos.get('franchises')
+			dicc['nombre']=juegos.get('title')
+			dicc['autor']=juegos.get('authors')
+			dicc['fecha']=juegos.get('publish_date')
+			dicc['deck']=juegos.get('deck')
+			dicc['body']=juegos.get('body')
+			dicc['ledes']=juegos.get('lede')
 			dicc['url']=juegos.get('site_detail_url')
-			dicc['generos']=juegos.get('genres')
+			dicc['generos']=juegos.get('categories')
 			datos.append(dicc)
 		if ind:
 			abort(404)
 		else:
-			return render_template("detallesjuegos.html",datos=datos)
+			return render_template("detallesnoticias.html",datos=datos)
 	else:
 		abort(404)
 

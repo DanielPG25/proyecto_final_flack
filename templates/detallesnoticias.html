@@ -14,7 +14,7 @@
 					<p>Categorías:</p>
 					<ul>
 					{% for a in noticia.generos %}
-						<li>{{a.name}}</li>
+						<li><a href="/noticias/{{a.name}}">{{a.name}}</a></li>
 					{% endfor %}
 					</ul>
 					<a href={{noticia.url}}>Noticia Original</a>					

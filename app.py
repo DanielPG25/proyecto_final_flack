@@ -158,7 +158,24 @@ def categoriasnoticia(categoria):
 			dicc['id']=articulos.get('id')
 			datos.append(dicc)
 		return render_template("categoriasnoticias.html",datos=datos,cad=categoria)
-	else
+	else:
+		abort(404)
+
+@app.route('/juegos/<categoria>')
+def categoriasjuego(categoria):
+	nombre="genres:" + categoria
+	parametros={"api_key":key,"format":"json","filter":nombre,"offset":0}
+	r=requests.get(url_base+"games/",params=parametros,headers=cabeceras)
+	if r.status_code==200:
+		doc = r.json()
+		datos = []
+		for articulos in doc.get('results'):
+			dicc={}
+			dicc['nombre']=articulos.get('name')
+			dicc['id']=articulos.get('id')
+			datos.append(dicc)
+		return render_template("categoriasjuegos.html",datos=datos,cad=r.url)
+	else:
 		abort(404)
 
 
